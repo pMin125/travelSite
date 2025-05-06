@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: toyProject
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/toy-db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+#    url: jdbc:mysql://mysql-container:3306/toy-db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: toy-user
+    password: toy1
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  security:
+    user:
+      name: user
+      password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  data:
+    redis:
+      host: localhost
+#      host: redis
+      port: 6379
+      jedis:
+        pool:
+          max-active: 10
+          max-idle: 5
+          min-idle: 1
+          max-wait: -1ms
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      direct: # ✅ 여기 simple -> direct 로
+        consumers-per-queue: 3
+    deserialization:
+      trust:
+        all: true  # ✅ (all: true면 지금 오류는 안 터질 거야)
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: penutsand62@gmail.com    # 너의 구글 이메일
+    password: abkhgqtuzkrmoyub       # 구글 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    org.springframework.web.socket: DEBUG
+    org.springframework.messaging: DEBUG
+
+server:
+  port: 8080
+  # ?? ?? (??)
+#logging:
+#  level:
+#    org.hibernate.SQL: debug
+#    org.hibernate.type.descriptor.sql: trace
